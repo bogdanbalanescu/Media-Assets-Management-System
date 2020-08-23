@@ -16,6 +16,11 @@ namespace Domain.Aggregates.ImageAssets
         public string Name { get; set; }
 
         /// <summary>
+        /// Asset Content Type
+        /// </summary>
+        public string ContentType { get; set; }
+
+        /// <summary>
         /// Asset Global Unique Identifier
         /// </summary>
         public Guid Guid { get; set; }
@@ -31,9 +36,10 @@ namespace Domain.Aggregates.ImageAssets
         /// <param name="name">Asset Name. Required parameter.</param>
         /// <param name="assetVariants">Asset Variants (one for each Variant type). Required parameter.</param>
         /// <param name="guid">Asset Global Unique Identifier. Required parameter.</param>
-        public ImageAsset(string name, Guid guid, int folderId)
+        public ImageAsset(string name, string contentType, Guid guid, int folderId)
         {
             SetName(name);
+            SetContentType(contentType);
             SetGuid(guid);
             FolderId = folderId;
         }
@@ -46,10 +52,11 @@ namespace Domain.Aggregates.ImageAssets
         /// <param name="name">ImageAsset Name. Required parameter.</param>
         /// <param name="folderId">Parent Folder Identifier. Optional parameter. When optional, this folder has no parent.</param>
         /// <exception cref="RequiredArgumentException">Thrown if required arguments are null or empty.</exception>
-        public ImageAsset(int id, DateTime creationDate, string name, Guid guid, int folderId)
+        public ImageAsset(int id, DateTime creationDate, string name, string contentType, Guid guid, int folderId)
             : base(id, creationDate)
         {
             SetName(name);
+            SetContentType(contentType);
             SetGuid(guid);
             FolderId = folderId;
         }
@@ -64,6 +71,18 @@ namespace Domain.Aggregates.ImageAssets
             EnsureArg.IsNotNullOrEmpty(name, nameof(name),
                 o => o.WithException(new RequiredArgumentException(nameof(name))));
             Name = name;
+        }
+
+        /// <summary>
+        /// Set the asset ContentType.
+        /// </summary>
+        /// <param name="contentType">Asset ContentType. Required parameter.</param>
+        /// <exception cref="RequiredArgumentException">Thrown if required arguments are null or empty.</exception>
+        private void SetContentType(string contentType)
+        {
+            EnsureArg.IsNotNullOrEmpty(contentType, nameof(contentType),
+                o => o.WithException(new RequiredArgumentException(nameof(contentType))));
+            ContentType = contentType;
         }
 
         private void SetGuid(Guid guid)

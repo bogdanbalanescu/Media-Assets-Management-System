@@ -16,6 +16,7 @@ namespace Persistence.EntityConfigurations
             builder.Property(image => image.Id).HasColumnName("Id").UseIdentityColumn().IsRequired();
             builder.Property(image => image.CreationDate).HasColumnName("CreationDate").HasDefaultValueSql("getdate()");
             builder.Property(image => image.Name).HasColumnName("Name").HasMaxLength(100).IsRequired();
+            builder.Property(image => image.ContentType).HasColumnName("ContentType").HasMaxLength(100).IsRequired();
             builder.Property(image => image.Guid).HasColumnName("Guid").HasMaxLength(100).IsRequired();
 
             builder.HasOne(typeof(Folder)).WithMany().HasForeignKey(nameof(ImageAsset.FolderId));

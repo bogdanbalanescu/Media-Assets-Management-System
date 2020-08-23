@@ -33,7 +33,7 @@ namespace ApplicationServices.Requests.Commands.ImageAssets.CreateImageAsset
             await blobClient.UploadAsync(request.ImageReadStream, true);
             request.ImageReadStream.Close();
 
-            var imageAsset = new ImageAsset(request.FileName, assetGlobalUniqueIdentifier, request.ParentFolderId);
+            var imageAsset = new ImageAsset(request.FileName, request.ContentType, assetGlobalUniqueIdentifier, request.ParentFolderId);
             var imageId = await imageAssetsRepository.AddAsync(imageAsset);
 
             return imageId;

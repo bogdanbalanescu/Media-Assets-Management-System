@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MediaAssetManagementSystemDbContext))]
-    [Migration("20200822194432_AddedImageAssets")]
+    [Migration("20200823172741_AddedImageAssets")]
     partial class AddedImageAssets
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,12 @@ namespace Persistence.Migrations
                         .HasAnnotation("SqlServer:IdentityIncrement", 1)
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnName("ContentType")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()

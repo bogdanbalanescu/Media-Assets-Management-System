@@ -13,6 +13,8 @@ namespace ApplicationServices.Requests.Queries.ImageAssets.ReadImageAsset
         /// </summary>
         public string Name { get; set; }
 
+        public string ContentType { get; set; }
+
         /// <summary>
         /// Asset Global Unique Identifier
         /// </summary>
@@ -28,6 +30,7 @@ namespace ApplicationServices.Requests.Queries.ImageAssets.ReadImageAsset
             Id = imageAsset.Id;
             CreationDate = imageAsset.CreationDate;
             Name = imageAsset.Name;
+            ContentType = imageAsset.ContentType;
             Guid = imageAsset.Guid;
             FolderId = imageAsset.FolderId;
         }

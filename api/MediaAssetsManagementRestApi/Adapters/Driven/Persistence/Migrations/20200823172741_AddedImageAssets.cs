@@ -15,6 +15,7 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreationDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
+                    ContentType = table.Column<string>(maxLength: 100, nullable: false),
                     Guid = table.Column<Guid>(maxLength: 100, nullable: false),
                     FolderId = table.Column<int>(nullable: false)
                 },

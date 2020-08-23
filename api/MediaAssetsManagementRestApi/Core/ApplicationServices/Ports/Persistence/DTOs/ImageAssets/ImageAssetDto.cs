@@ -8,6 +8,7 @@ namespace ApplicationServices.Ports.Persistence.DTOs.ImageAssets
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
         public string Name { get; set; }
+        public string ContentType { get; set; }
         public Guid Guid { get; set; }
         public int FolderId { get; set; }
 
@@ -16,6 +17,7 @@ namespace ApplicationServices.Ports.Persistence.DTOs.ImageAssets
             Id = imageAsset.Id;
             CreationDate = imageAsset.CreationDate;
             Name = imageAsset.Name;
+            ContentType = imageAsset.ContentType;
             Guid = imageAsset.Guid;
             FolderId = imageAsset.FolderId;
         }

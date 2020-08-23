@@ -7,22 +7,9 @@ namespace ApplicationServices.Requests.Queries.ImageAssets.ReadImageAssets
     {
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
-
-        /// <summary>
-        /// Asset Name
-        /// </summary>
         public string Name { get; set; }
-
         public string ContentType { get; set; }
-
-        /// <summary>
-        /// Asset Global Unique Identifier
-        /// </summary>
         public Guid Guid { get; set; }
-
-        /// <summary>
-        /// Parent Folder Identifier
-        /// </summary>
         public int FolderId { get; set; }
 
         public ImageAssetResponse(ImageAssetDto imageAsset)

@@ -1,5 +1,6 @@
 ﻿using ApplicationServices.Ports.Persistence.DTOs.ImageAssets;
 using ApplicationServices.Requests.Pagination;
+using Domain.SharedKernel.Exceptions;
 using System.Threading.Tasks;
 
 namespace ApplicationServices.Ports.Persistence

@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Persistence.Repositories.Models
 {
+    /// <summary>
+    /// Creates a next page token either from and index and a boolean or from an already existing next page token string.
+    /// The ToString() method has been overriden to create a next page token string.
+    /// </summary>
     public class NextPageToken
     {
         public int NextPageIndex { get; }

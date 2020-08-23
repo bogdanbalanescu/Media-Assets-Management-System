@@ -1,4 +1,5 @@
 ﻿using ApplicationServices.Requests.Commands.Folders.CreateFolder.Exceptions;
+using ApplicationServices.Requests.Exceptions;
 using Domain.Aggregates.Folders;
 using MediatR;
 using System.Threading;
@@ -17,6 +18,8 @@ namespace ApplicationServices.Requests.Commands.Folders.CreateFolder
 
         public async Task<int> Handle(CreateFolderCommand request, CancellationToken cancellationToken)
         {
+            if (request.ParentId.HasValue && !await foldersRepository.Exists(request.ParentId.Value))
+                throw new ParentFolderDoesNotExistRequestException();
             if (!await foldersRepository.IsUniqueInParent(request.Name, request.ParentId))
                 throw new FolderNameMustBeUniqueInParentRequestException();
 

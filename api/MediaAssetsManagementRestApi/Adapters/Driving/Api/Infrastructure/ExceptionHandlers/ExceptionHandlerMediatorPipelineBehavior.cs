@@ -8,8 +8,6 @@ namespace Api.Infrastructure.ExceptionHandlers
 {
     public class ExceptionHandlerMediatorPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
-        // TODO: add logger
-
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             try
@@ -18,7 +16,7 @@ namespace Api.Infrastructure.ExceptionHandlers
             }
             catch(Exception ex)
             {
-                if (ex is RequestException)
+                if (ex is RequestException || ex is ArgumentException)
                     throw;
                 throw new ServerException(ex.Message);
             }

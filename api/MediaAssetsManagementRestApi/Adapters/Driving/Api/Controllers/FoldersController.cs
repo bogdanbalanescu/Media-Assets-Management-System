@@ -148,6 +148,10 @@ namespace Api.Controllers
             {
                 return this.BadRequest(ApiErrors.FolderNameMustBeUniqueInParent);
             }
+            catch (ParentFolderDoesNotExistRequestException)
+            {
+                return this.BadRequest(ApiErrors.ParentFolderDoesNotExist);
+            }
         }
     }
 }

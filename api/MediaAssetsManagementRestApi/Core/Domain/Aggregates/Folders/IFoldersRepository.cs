@@ -16,6 +16,13 @@ namespace Domain.Aggregates.Folders
         Task<Folder> GetByIdAsync(int id);
 
         /// <summary>
+        /// Check if folder referenced by its identifier exists.
+        /// </summary>
+        /// <param name="id">Folder Identifier. Required parameter.</param>
+        /// <returns>True if folder exists, false otherwise.</returns>
+        Task<bool> Exists(int id);
+
+        /// <summary>
         /// Check if folder name is unique in parent folder.
         /// </summary>
         /// <param name="name">Folder name. Required parameter.</param>

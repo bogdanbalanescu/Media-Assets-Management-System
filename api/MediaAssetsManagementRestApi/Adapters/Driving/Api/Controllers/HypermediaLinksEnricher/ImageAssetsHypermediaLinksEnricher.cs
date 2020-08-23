@@ -9,7 +9,8 @@ namespace Api.Controllers.HypermediaLinksEnricher
         public static void EnrichWithLinks(this ImageAssetResource image, ControllerBase controller)
         {
             image.AddLinks(
-                new Link("self", controller.Url.Link("GetImage", new { Id = image.Id }))
+                new Link("self", controller.Url.Link("GetImage", new { Id = image.Id })),
+                new Link("self", controller.Url.Link("GetImageMetadata", new { Id = image.Id }))
                 );
         }
     }

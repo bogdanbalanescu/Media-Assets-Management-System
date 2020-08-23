@@ -34,8 +34,10 @@ namespace Domain.Aggregates.ImageAssets
         /// Asset constructor.
         /// </summary>
         /// <param name="name">Asset Name. Required parameter.</param>
-        /// <param name="assetVariants">Asset Variants (one for each Variant type). Required parameter.</param>
+        /// <param name="contentType">ImageAsset ContentType. Required parameter.</param>
         /// <param name="guid">Asset Global Unique Identifier. Required parameter.</param>
+        /// <param name="folderId">Parent Folder Identifier. Optional parameter. When optional, this folder has no parent.</param>
+        /// <exception cref="RequiredArgumentException">Thrown if required arguments are null or empty.</exception>
         public ImageAsset(string name, string contentType, Guid guid, int folderId)
         {
             SetName(name);
@@ -50,6 +52,8 @@ namespace Domain.Aggregates.ImageAssets
         /// <param name="id">ImageAsset Identifier. Required parameter.</param>
         /// <param name="creationDate">Creation Date. Required parameter.</param>
         /// <param name="name">ImageAsset Name. Required parameter.</param>
+        /// <param name="contentType">ImageAsset ContentType. Required parameter.</param>
+        /// <param name="guid">Asset Global Unique Identifier. Required parameter.</param>
         /// <param name="folderId">Parent Folder Identifier. Optional parameter. When optional, this folder has no parent.</param>
         /// <exception cref="RequiredArgumentException">Thrown if required arguments are null or empty.</exception>
         public ImageAsset(int id, DateTime creationDate, string name, string contentType, Guid guid, int folderId)
@@ -85,6 +89,11 @@ namespace Domain.Aggregates.ImageAssets
             ContentType = contentType;
         }
 
+        /// <summary>
+        /// Set the asset Guid.
+        /// </summary>
+        /// <param name="guid">Asset Global Unique Identifier. Required parameter.</param>
+        /// <exception cref="RequiredArgumentException">Thrown if required arguments are null or empty.</exception>
         private void SetGuid(Guid guid)
         {
             EnsureArg.IsNotDefault(guid, nameof(guid),

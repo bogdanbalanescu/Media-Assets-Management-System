@@ -1,8 +1,13 @@
-﻿using ApplicationServices.Requests.Pagination;
+﻿using ApplicationServices.Requests.Exceptions;
+using ApplicationServices.Requests.Pagination;
 using MediatR;
 
 namespace ApplicationServices.Requests.Queries.Folders.ReadFolders
 {
+    /// <summary>
+    /// Retrieves a page of Folders.
+    /// </summary>
+    /// <exception cref="InvalidNextPageTokenRequestException">Thrown if next page token is invalid.</exception>
     public class ReadFoldersQuery : IRequest<PaginatedResult<FolderResponse>>
     {
         public int Limit;

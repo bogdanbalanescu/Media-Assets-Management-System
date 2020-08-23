@@ -1,9 +1,15 @@
-﻿using EnsureThat;
+﻿using ApplicationServices.Requests.Exceptions;
+using EnsureThat;
 using MediatR;
 using System.IO;
 
 namespace ApplicationServices.Requests.Commands.ImageAssets.CreateImageAsset
 {
+    /// <summary>
+    /// Create a new image asset.
+    /// </summary>
+    /// <exception cref="FileNameMustBeUniqueInFolderRequestException">Thrown if a file with the same name already exists under the same folder.</exception>
+    /// <exception cref="ParentFolderDoesNotExistRequestException">Thrown if parent folder does not exist.</exception>
     public class CreateImageAssetCommand : IRequest<int>
     {
         public Stream ImageReadStream { get; }

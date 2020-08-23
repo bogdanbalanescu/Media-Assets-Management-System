@@ -83,6 +83,19 @@ namespace Persistence.Repositories
             }
         }
 
+        public async Task<bool> Exists(int id)
+        {
+            try
+            {
+                await GetByIdAsync(id);
+                return true;
+            }
+            catch (NotFoundRepositoryException)
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> IsUniqueInParent(string name, int? parentId)
         {
             IQueryable<Folder> foldersQuery = dbContext.Folders.AsNoTracking();
@@ -111,6 +124,5 @@ namespace Persistence.Repositories
                 throw new RepositoryException(errorMessage, ex);
             }
         }
-
     }
 }

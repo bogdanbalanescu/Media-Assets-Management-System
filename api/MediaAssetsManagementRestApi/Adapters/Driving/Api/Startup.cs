@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Infrastructure.Dependency;
+using Api.Infrastructure.ExceptionHandlers;
 using MediaAssetsPersistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,6 +60,8 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseCors(AllowAnyOrigins);
 

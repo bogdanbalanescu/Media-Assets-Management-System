@@ -1,9 +1,10 @@
-﻿using Domain.SharedKernel.Exceptions;
+﻿using Domain.SharedKernel;
+using Domain.SharedKernel.Exceptions;
 using System.Threading.Tasks;
 
 namespace Domain.Aggregates.ImageAssets
 {
-    public interface IImageAssetsRepository
+    public interface IImageAssetsRepository : IRepository<ImageAsset, int>
     {
         /// <summary>
         /// Retrieve one asset by its identifier.

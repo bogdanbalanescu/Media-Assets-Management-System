@@ -10,11 +10,13 @@ using ApplicationServices.Requests.Exceptions;
 using ApplicationServices.Requests.Queries.ImageAssets.ReadImageAsset;
 using ApplicationServices.Requests.Queries.ImageAssets.ReadImageAssets;
 using Azure.Storage.Blobs;
+using EnsureThat;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -66,7 +68,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetActualImage")]
+        [HttpGet("{id}", Name = "GetImage")]
         public async Task<ActionResult> Get(int id)
         {
             var query = new ReadImageAssetQuery(id);
@@ -77,28 +79,29 @@ namespace Api.Controllers
             return new FileStreamResult(imageStream, new MediaTypeHeaderValue(response.ContentType));
         }
 
-        //[HttpGet("{id}", Name = "GetImage")]
-        //public async Task<ActionResult<ImageAssetResource>> Get(int id)
-        //{
-        //    try
-        //    {
-        //        var query = new ReadImageAssetQuery(id);
-        //        var response = await mediator.Send(query);
-        //        var imageAssetResource = new ImageAssetResource(response);
-        //        imageAssetResource.EnrichWithLinks(this);
+        [HttpGet("{id}/metadata", Name = "GetImageMetadata")]
+        public async Task<ActionResult<ImageAssetResource>> GetImageMetadata(int id)
+        {
+            try
+            {
+                var query = new ReadImageAssetQuery(id);
+                var response = await mediator.Send(query);
+                var imageAssetResource = new ImageAssetResource(response);
+                imageAssetResource.EnrichWithLinks(this);
 
-        //        return imageAssetResource;
-        //    }
-        //    catch (NotFoundRequestException)
-        //    {
-        //        return NotFound();
-        //    }
-        //}
+                return imageAssetResource;
+            }
+            catch (NotFoundRequestException)
+            {
+                return NotFound();
+            }
+        }
 
         [HttpPost("", Name = "CreateImage")]
         public async Task<ActionResult<ImageAssetResource>> Post(
             [FromForm] IFormFile imageFormFile, [FromForm] int folderId)
         {
+            EnsureArg.IsNotNull(imageFormFile);
             var formFileValidator = new FormFileValidator();
             try
             {
@@ -130,6 +133,14 @@ namespace Api.Controllers
             catch (FileContentTypeIsNotAcceptedRequestException)
             {
                 return this.BadRequest(ApiErrors.FileContentTypeIsNotAccepted);
+            }
+            catch (ParentFolderDoesNotExistRequestException)
+            {
+                return this.BadRequest(ApiErrors.ParentFolderDoesNotExist);
+            }
+            catch (FileNameMustBeUniqueInFolderRequestException)
+            {
+                return this.BadRequest(ApiErrors.FileNameMustBeUniqueInFolder);
             }
         }
     }

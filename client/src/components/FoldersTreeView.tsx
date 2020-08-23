@@ -55,6 +55,7 @@ class FoldersTreeView extends React.Component<Props> {
             .catch((error) => {
                 console.log(error);
             });
+        if (folder.images.length > 0) return;
         this.props.imagesRepository
             .GetImagesForFolder(folder.id)
             .then((response) => {

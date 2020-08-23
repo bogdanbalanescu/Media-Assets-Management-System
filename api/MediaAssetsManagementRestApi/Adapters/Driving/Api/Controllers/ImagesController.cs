@@ -71,12 +71,19 @@ namespace Api.Controllers
         [HttpGet("{id}", Name = "GetImage")]
         public async Task<ActionResult> Get(int id)
         {
-            var query = new ReadImageAssetQuery(id);
-            var response = await mediator.Send(query);
-            var blobClient = blobContainerClient.GetBlobClient(response.Guid.ToString());
-            var imageStream = blobClient.OpenRead();
+            try
+            {
+                var query = new ReadImageAssetQuery(id);
+                var response = await mediator.Send(query);
+                var blobClient = blobContainerClient.GetBlobClient(response.Guid.ToString());
+                var imageStream = blobClient.OpenRead();
 
-            return new FileStreamResult(imageStream, new MediaTypeHeaderValue(response.ContentType));
+                return new FileStreamResult(imageStream, new MediaTypeHeaderValue(response.ContentType));
+            }
+            catch (NotFoundRequestException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("{id}/metadata", Name = "GetImageMetadata")]

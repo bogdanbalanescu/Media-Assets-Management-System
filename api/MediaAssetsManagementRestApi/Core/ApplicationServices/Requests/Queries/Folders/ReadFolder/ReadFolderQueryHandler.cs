@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationServices.Requests.Queries.Folders.ReadFolder
 {
-    class ReadFolderQueryHandler : IRequestHandler<ReadFolderQuery, FolderResponse>
+    internal class ReadFolderQueryHandler : IRequestHandler<ReadFolderQuery, FolderResponse>
     {
         private readonly IFoldersRepository foldersRepository;
 

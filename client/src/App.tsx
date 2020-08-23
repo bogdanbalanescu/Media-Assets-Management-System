@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import FoldersTreeView from './components/FoldersTreeView';
+import { RootState } from './redux';
+import { addFolders } from './redux/modules/folders';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const mapStateToProps = (state: RootState) => ({
+  foldersRepository: state.foldersRepository
+});
+const mapDispatchToProps = { 
+  addFolders: addFolders
 }
 
-export default App;
+type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
+class App extends React.Component<Props> {
+  render() {
+    return (
+      <FoldersTreeView />
+    );
+  }
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connector(App);
